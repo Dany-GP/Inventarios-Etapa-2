@@ -9,6 +9,7 @@ import cajasManchadas from './img/cajas-manchadas.jpg';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Footer from './Footer';
 
 // ..
 AOS.init();
@@ -186,7 +187,7 @@ export class Home extends Component {
 
           </div>
         </div>
-
+        <Footer></Footer>
       </div>
     );
   }
