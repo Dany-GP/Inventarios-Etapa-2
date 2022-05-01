@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace aspnetcore_with_reactspa.Models;
 
 public class Products{
+    [Key]
     public int ProductID { get; set; }
         [MaxLength(40)]
         [Required]

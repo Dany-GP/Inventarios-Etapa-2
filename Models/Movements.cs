@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace aspnetcore_with_reactspa.Models;
 
 public class Movements{
+    [Key]
     public int MovementID {get; set;}
     [Required]
     public DateTime? Date {get; set;}
