@@ -10,6 +10,7 @@ public class WarehouseController: ControllerBase{
         _service = service;
     }
 
+    [HttpGet("products")]
     public IEnumerable<Products> getAllProducts(){
         return _service.getAllProducts();
     }
