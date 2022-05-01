@@ -5,8 +5,8 @@ namespace aspnetcore_with_reactspa.Models;
 
 public class WarehouseProducts{
 
-    [Required]
-    public Warehouses? Warehouses { get; set; }
+    [Key]
+    public int? Warehouses { get; set; }
     [Required]
     public Products? Products { get; set; }
     [Required]

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import DataTable from 'datatables.net';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import bootstrap from  'bootstrap/dist/js/bootstrap.min.js';
+import bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
 import './styles/index.css';
+import './styles/Almacenes.css';
+import Footer from './Footer';
 $.DataTable = require('datatables.net');
 
 function mostrarModal() {
@@ -24,9 +26,7 @@ export class Almacenes extends Component {
 
     }
 
-    mostrarModal = () => {
-        alert("xd");
-    }
+   
 
 
 
@@ -34,6 +34,10 @@ export class Almacenes extends Component {
         return (
 
             <div className='container'>
+                <div class="tab sticky-top">
+                    <button class="tablinks" onclick="openAlmacen(event, 'Almacen1')" id="defaultOpen">Stock Total</button>
+                    <button class="tablinks" onclick="openAlmacen2(event, 'Almacen2')" id="dosOpen">Almacen #</button>
+                </div>
                 <table id="tabla_1" className="table table-dark table-striped w-100">
                     <thead>
                         <tr>
@@ -115,33 +119,33 @@ export class Almacenes extends Component {
                         <div class="modal-content bg-dark">
                             <div class="modal-header">
                                 <h3 class="modal-title" id="exampleModalLabel">"Nombre del producto"
-                            </h3>
-                            <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="">
-                                <select class="form-select bg-dark text-white" aria-label="Default select example">
-                                    <option selected>Selecciona la operación</option>
-                                    <option value="1">Entrada de compra</option>
-                                    <option value="2">Salida por venta</option>
-                                    <option value="3">Traspaso entre almacenes</option>
-                                    <option value="3">Ajuste</option>
-                                </select>
-                                <label for="" class="form-label">Número de productos</label>
-                                <input type="number" class="form-control bg-dark text-white" placeholder="0"/>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn">Guardar cambios</button>
+                                </h3>
+                                <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <select class="form-select bg-dark text-white" aria-label="Default select example">
+                                        <option selected>Selecciona la operación</option>
+                                        <option value="1">Entrada de compra</option>
+                                        <option value="2">Salida por venta</option>
+                                        <option value="3">Traspaso entre almacenes</option>
+                                        <option value="3">Ajuste</option>
+                                    </select>
+                                    <label for="" class="form-label">Número de productos</label>
+                                    <input type="number" class="form-control bg-dark text-white" placeholder="0" />
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn">Guardar cambios</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+                <Footer></Footer>
             </div >
-
+            
         );
     }
 
