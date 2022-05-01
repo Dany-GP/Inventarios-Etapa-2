@@ -9,7 +9,6 @@ import cajasManchadas from './img/cajas-manchadas.jpg';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Footer from './Footer';
 
 // ..
 AOS.init();
@@ -20,7 +19,7 @@ export class Home extends Component {
 
   render() {
     return (
-      <div classNameName='bg-dark'>
+      <div classNameName='bg-dark container-fluid'>
 
         <div id="carouselExampleCaptions" className="carousel slide carousel-white mx-3 my-5" data-bs-ride="carousel">
           <div className="carousel-indicators">
@@ -80,7 +79,7 @@ export class Home extends Component {
           </button>
         </div>
 
-        <div data-aos="fade-right" data-aos-duration="3000" className="contenedor-medio" id="info">
+        <div data-aos="fade-right" data-aos-duration="1000" className="contenedor-medio" id="info">
           <div className="col mx-5">
             <h1 className="fs-1 my-3  fs-1 fw-bold rounded-3 text-center">¿Sin espacio para tus cosas?... Nosotros lo
               guardamos por tí</h1>
@@ -187,7 +186,7 @@ export class Home extends Component {
 
           </div>
         </div>
-        <Footer></Footer>
+        
       </div>
     );
   }
