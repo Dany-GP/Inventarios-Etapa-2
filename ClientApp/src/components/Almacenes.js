@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
 import './styles/index.css';
 import './styles/Almacenes.css';
-import Footer from './Footer';
 $.DataTable = require('datatables.net');
 
 function mostrarModal() {
