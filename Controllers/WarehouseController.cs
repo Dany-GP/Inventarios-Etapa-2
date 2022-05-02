@@ -14,5 +14,19 @@ public class WarehouseController: ControllerBase{
     public IEnumerable<Products> getAllProducts(){
         return _service.getAllProducts();
     }
+    [HttpGet("{id}")]
+    public ActionResult<Products> GetByIdProduct(int id)
+    {
+        var products = _service.GetByIdProduct(id);
 
+        if(products is not null)
+        {
+            return products;
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+   
 }

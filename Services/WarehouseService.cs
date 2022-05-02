@@ -16,4 +16,24 @@ public class WarehouseService
     public IEnumerable<Products> getAllProducts(){
         return _context.Products.AsNoTracking().ToList();
     }
+    public Products? GetByIdProduct(int id)
+    {
+
+         return _context.Products
+            .Include(p => p.ProductName)
+            .Include(p => p.Category)
+            .AsNoTracking()
+            .SingleOrDefault(p => p.ProductID == id);
+
+    }
+    public Products? GetByIdSuppliers(int id)
+    {
+
+         return _context.Suppliers
+            .Include(s => s.CompanyName)
+            .Include(s => s.ContactName)
+            .AsNoTracking()
+            .SingleOrDefault(s => s.SupplierID == id);
+
+    }
 }
