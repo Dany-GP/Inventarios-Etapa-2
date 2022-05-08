@@ -1,4 +1,7 @@
 using aspnetcore_with_reactspa.Data;
+using Microsoft.EntityFrameworkCore;
+using aspnetcore_with_reactspa.Controllers;
+using aspnetcore_with_reactspa;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,8 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+//builder.Services.AddControllers();
+
 // Add the PizzaContext
-builder.Services.AddSqlite<WarehouseContext>("Data Source=Prueba.db");    
+//builder.Services.AddSqlite<WarehouseContext>("Data Source=Prueba.db");  
+
+var connectionString = builder.Configuration.GetConnectionString("BDNorthwind");
+builder.Services.AddDbContext<NorthwindContext>(options =>
+{
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
 
 
 

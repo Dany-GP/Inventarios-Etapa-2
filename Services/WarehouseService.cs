@@ -6,14 +6,14 @@ namespace aspnetcore_with_reactspa;
 
 public class WarehouseService
 {
-    private readonly WarehouseContext _context;
+    private readonly NorthwindContext _context;
 
-    public WarehouseService(WarehouseContext context)
+    public WarehouseService(NorthwindContext context)
     {
         _context = context;
     }
 
-    public IEnumerable<Products> getAllProducts(){
+    public IEnumerable<Product> getAllProducts(){
         return _context.Products.AsNoTracking().ToList();
     }
 }
