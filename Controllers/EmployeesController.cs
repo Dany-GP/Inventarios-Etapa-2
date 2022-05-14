@@ -22,6 +22,55 @@ namespace aspnetcore_with_reactspa.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        [Route("ByCompany")]
+        public IEnumerable<Object> GetEmployeesByCompany()
+        {
+            return _context.Employees.
+                GroupBy(e => e.CompanyId).
+                Select(e => new {
+                    Company = e.Key,
+                    Empleados = e.Count()
+                })
+                .AsEnumerable();
+        }
+
+        [HttpGet]
+        [Route("Top5")]
+        public IEnumerable<Object> GetTop5Employees()
+        {
+            return _context.Employees
+                .Where(e => e.CompanyId == 1)
+                .Join(
+                    _context.Movements, 
+                    e => e.EmployeeId,
+                    m => m.EmployeeId,
+                    (e,m) => new {
+                        Empleado = e.FirstName +" "+ e.LastName,
+                        IdMovimiento = m.MovementId,
+                        Anio = m.Date.Year
+                    })
+                .Where(em => em.Anio==1996)
+                .Join(_context.Movementdetails, 
+                    em => em.IdMovimiento,
+                    md => md.MovementId,
+                    (em, md) => new
+                    {
+                        Empleado = em.Empleado,
+                        Cantidad = md.Quantity
+                    }
+                )
+                .GroupBy(e => e.Empleado)
+                .Select(e => new
+                {
+                    Empleado = e.Key,
+                    Ventas = e.Sum(g => g.Cantidad)
+                })
+                .OrderByDescending(e => e.Ventas)
+                .Take(5)
+                .AsEnumerable();
+        }
+
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()

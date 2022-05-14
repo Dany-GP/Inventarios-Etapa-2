@@ -16,18 +16,36 @@ function mostrarModal() {
 
 export class Almacenes extends Component {
 
-    componentDidMount() {
-        $(document).ready(function () {
-            //DataTable no funciona aún
-            // $('#tabla_1').DataTable({});
-
-        });
+    constructor(props) {
+        super(props);
+        this.state = { data: [] };
 
     }
 
-   
+    componentDidMount() {
+        $(document).ready(function () {
+            //DataTable no funciona aún
+            //$('#tabla_1').DataTable({});
 
+        });
 
+        const options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+
+        fetch('api/products', options).then(response => {
+            return response.json();
+        }).then(
+            (dataApi) => {
+                this.setState({ data: dataApi });
+                console.log(dataApi);
+                console.log(this.state.data);
+            }
+        );
+    }
 
     render() {
         return (
@@ -40,76 +58,34 @@ export class Almacenes extends Component {
                 <table id="tabla_1" className="table table-dark table-striped w-100">
                     <thead>
                         <tr>
-                            <th>Clave</th>
+                            <th>ID</th>
                             <th>Producto</th>
                             <th>Categoria</th>
-                            <th>Existencia</th>
-                            <th>Nivel de reorden</th>
+                            <th>Precio</th>
+                            <th>Info</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>001</td>
-                            <td>Leche</td>
-                            <td>Lacteos</td>
-                            <td>80</td>
-                            <td>30</td>
-                            <td>
-                                <button className="btn" onClick={() => mostrarModal()}>Editar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Crema</td>
-                            <td>Lacteos</td>
-                            <td>40</td>
-                            <td>30</td>
-                            <td>
-                                <button className="btn">Editar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>Jamon</td>
-                            <td>Embutidos</td>
-                            <td>23</td>
-                            <td>30</td>
-                            <td>
-                                <button className="btn">Editar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>004</td>
-                            <td>Salchichas</td>
-                            <td>Embutidos</td>
-                            <td>17</td>
-                            <td>30</td>
-                            <td>
-                                <button class="btn">Editar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>022</td>
-                            <td>Coca cola</td>
-                            <td>Refrescos</td>
-                            <td>12</td>
-                            <td>30</td>
-                            <td>
-                                <button class="btn">Editar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>023</td>
-                            <td>Sprite</td>
-                            <td>Refrescos</td>
-                            <td>54</td>
-                            <td>30</td>
-                            <td>
-                                <button class="btn">Editar</button>
-                            </td>
-                        </tr>
 
+
+                        </tr>
+                        {
+                            this.state.data.map(producto =>
+                                <tr>
+                                    <th scope='row'>{producto.productId}</th>
+                                    <td>{producto.productName}</td>
+                                    <td>{producto.categoryId}</td>
+                                    <td>{producto.unitPrice}</td>
+                                    <td>{producto.quantityPerUnit}</td>
+                                    <td>
+                                        <button className="btn" onClick={() => mostrarModal()}>Editar</button>
+                                    </td>
+                                </tr>
+
+                            )
+                        }
                     </tbody>
                 </table>
 
@@ -143,7 +119,7 @@ export class Almacenes extends Component {
                     </div>
                 </div>
             </div >
-            
+
         );
     }
 
