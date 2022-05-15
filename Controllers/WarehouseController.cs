@@ -3,6 +3,8 @@ using aspnetcore_with_reactspa.Models;
 
 namespace aspnetcore_with_reactspa;
 
+[ApiController]
+[Route("[controller]")]
 public class WarehouseController: ControllerBase{
     WarehouseService _service;
 
@@ -10,8 +12,8 @@ public class WarehouseController: ControllerBase{
         _service = service;
     }
 
-    [HttpGet("products")]
-    public IEnumerable<Products> getAllProducts(){
+    [HttpGet]
+    public IEnumerable<Product> getAllProducts(){
         return _service.getAllProducts();
     }
     [HttpGet("{id}")]
