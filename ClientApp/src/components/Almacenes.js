@@ -47,8 +47,6 @@ export class Almacenes extends Component {
         }).then(
             (dataApi) => {
                 this.setState({ data: dataApi });
-                console.log(dataApi);
-                console.log(this.state.data);
                 $(document).ready(function () {
                     
                     /*$('#tabla_1').DataTable({
@@ -72,8 +70,6 @@ export class Almacenes extends Component {
         }).then(
             (dataCategories) => {
                 this.setState({ categorias: dataCategories });
-                console.log(dataCategories);
-                console.log(this.state.categorias);
             }
         );
 
@@ -82,8 +78,6 @@ export class Almacenes extends Component {
         }).then(
             (dataSuppliers) => {
                 this.setState({ suppliers: dataSuppliers });
-                console.log(dataSuppliers);
-                console.log(this.state.suppliers);
             }
         );
 
@@ -92,28 +86,26 @@ export class Almacenes extends Component {
         }).then(
             (dataCompanies) => {
                 this.setState({ companies: dataCompanies });
-                console.log(dataCompanies);
-                console.log(this.state.companies);
             }
         );
     }
 
     nameChange(evt) {
         this.setState({ [evt.target.name]: evt.target.value });
-        console.log(evt.target.name + " " + evt.target.value);
 
     }
 
     agregarProducto() {
-        const producto = {
-            productId: 0,
+    
+        const producto =    {
+            
             productName: this.state.name,
-            supplierId: this.state.proveedor,
-            categoryId: this.state.categoria,
+            supplierId: parseInt( this.state.proveedor),
+            categoryId: parseInt( this.state.categoria),
             quantityPerUnit: this.state.quantity,
-            unitPrice: this.state.precio,
-            photoPath: "",
-            companyId: this.state.company
+            unitPrice: parseFloat(this.state.precio),
+            photoPath: null,
+            companyId: parseInt( this.state.company)
         }
         console.log(producto);
 
@@ -124,7 +116,9 @@ export class Almacenes extends Component {
             },
             body: JSON.stringify(producto)
         };
-        console.log(options.body);
+
+        console.log(options);
+        
         fetch("api/Products", options).then(
             (response) => {
                 return response.status;
@@ -132,9 +126,10 @@ export class Almacenes extends Component {
         ).then(
             (code) => {
                 if (code == 201) {
-                    window.location.reload();
+                    alert("ya jaló");
                 } else {
                     console.log(code);
+                    
                 }
             }
         )
