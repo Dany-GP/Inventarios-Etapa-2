@@ -127,6 +127,7 @@ namespace aspnetcore_with_reactspa.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            
           if (_context.Products == null)
           {
               return Problem("Entity set 'NorthwindContext.Products'  is null.");
