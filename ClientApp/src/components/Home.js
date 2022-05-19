@@ -8,7 +8,7 @@ import combinacion from './img/Combinacion-3-version-3.jpg';
 import cajasManchadas from './img/cajas-manchadas.jpg';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // ..
 AOS.init();
@@ -179,7 +179,7 @@ export class Home extends Component {
 
           <div data-aos="fade-up" data-aos-duration="2000" className="precio">
             <h2>Avanzado</h2>
-            <FontAwesomeIcon icon="fa-regular fa-building" />
+            
             <h3>999 USD / month</h3>
             <p>Para vendedores avanzados y grandes con ventas al consumidor y al por mayor </p>
             <a href="" className="btn">Iniciar Ahora</a>

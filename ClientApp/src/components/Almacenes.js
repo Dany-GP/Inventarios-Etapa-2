@@ -9,9 +9,9 @@ import {
 } from 'reactstrap';
 import { refresh } from 'aos';
 //jQuery libraries
- 
+
 import 'jquery/dist/jquery.min.js';
- 
+
 //Datatable Modules
 
 import "datatables.net-dt/js/dataTables.dataTables"
@@ -25,7 +25,7 @@ export class Almacenes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            accion: 0, data: [], categorias: [], suppliers: [], companies: [],
+            accion: 0, data: [], categorias: [], suppliers: [], companies: [],productId:0,
             name: "", proveedor: 0, categoria: 0, quantity: "", precio: 0,
             company: 0
         };
@@ -33,7 +33,7 @@ export class Almacenes extends Component {
     }
 
     componentDidMount() {
-        
+
 
         const options = {
             method: "GET",
@@ -48,7 +48,7 @@ export class Almacenes extends Component {
             (dataApi) => {
                 this.setState({ data: dataApi });
                 $(document).ready(function () {
-                    
+
                     /*$('#tabla_1').DataTable({
                         data: dataApi,
                         columns:[
@@ -60,7 +60,7 @@ export class Almacenes extends Component {
                             {title: ""}
                         ]
                     });*/
-                    
+
                 });
             }
         );
@@ -95,10 +95,9 @@ export class Almacenes extends Component {
 
     }
 
-    agregarProducto() {
-    
-        const producto =    {
-            
+    editarProducto() {
+        /*const producto =    {
+            productId: this.state.productId,
             productName: this.state.name,
             supplierId: parseInt( this.state.proveedor),
             categoryId: parseInt( this.state.categoria),
@@ -106,6 +105,50 @@ export class Almacenes extends Component {
             unitPrice: parseFloat(this.state.precio),
             photoPath: null,
             companyId: parseInt( this.state.company)
+        }
+        console.log(producto.productName);
+        producto.productId  */
+
+    }
+    eliminar(){
+        const options = {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        };
+
+        fetch("api/Products/"+ this.state.productId, options).then(
+            (response) => {
+                return response.status;
+            }
+        ).then(
+            (code) => {
+                if (code == 204) {
+                    alert("ya jaló");
+                } else {
+                    console.log(code);
+                }
+            }
+        )
+    }
+    cargarModalEditar(){
+
+    }
+    EditarProducto(){
+        
+    }
+    agregarProducto() {
+
+        const producto = {
+
+            productName: this.state.name,
+            supplierId: parseInt(this.state.proveedor),
+            categoryId: parseInt(this.state.categoria),
+            quantityPerUnit: this.state.quantity,
+            unitPrice: parseFloat(this.state.precio),
+            photoPath: null,
+            companyId: parseInt(this.state.company)
         }
         console.log(producto);
 
@@ -118,7 +161,7 @@ export class Almacenes extends Component {
         };
 
         console.log(options);
-        
+
         fetch("api/Products", options).then(
             (response) => {
                 return response.status;
@@ -129,7 +172,6 @@ export class Almacenes extends Component {
                     alert("ya jaló");
                 } else {
                     console.log(code);
-                    
                 }
             }
         )
@@ -146,9 +188,12 @@ export class Almacenes extends Component {
     }
 
     mostrarModalUpdate = () => {
-
+        this.setState({ accion: 3 });
     }
-
+    mostrarModalDelete = (id ) => {
+        this.setState({ accion: 2 , productId: id });
+        console.log(id)
+    }
     render() {
         return (
 
@@ -182,8 +227,8 @@ export class Almacenes extends Component {
                                     <td>{producto.unitPrice}</td>
                                     <td>{producto.quantityPerUnit}</td>
                                     <td>
-                                        <button className="btn mx-3" onClick={() => this.mostrarModalUpdate}>Editar</button>
-                                        <button className="btn btn-danger" onClick={() => this.mostrarModalUpdate}>X</button>
+                                        <button className="btn mx-3" onClick={() => this.mostrarModalUpdate()}>Editar</button>
+                                        <button className="btn btn-danger" onClick={() => this.mostrarModalDelete(producto.productId)}>X</button>
                                     </td>
                                 </tr>
 
@@ -193,14 +238,14 @@ export class Almacenes extends Component {
                 </table>
 
                 <Modal
-                    isOpen={this.state.accion == 1 && true}
+                    isOpen={this.state.accion == 1}
                     centered
                     size="lg"
                     toggle={this.mitoogle}
 
                 >
                     <ModalHeader
-                        toggle={this.mitoogle}  
+                        toggle={this.mitoogle}
                         close={<button className="btn-lg" onClick={this.mitoogle}>x</button>}
                         className='bg-dark'
                     >
@@ -258,6 +303,103 @@ export class Almacenes extends Component {
                     <ModalFooter className='bg-dark'>
                         <button type="button" class="btn" onClick={this.mitoogle}>Cerrar</button>
                         <button type="button" onClick={() => this.agregarProducto() == true} class="btn">Agregar</button>
+                    </ModalFooter>
+                </Modal>
+
+                <Modal
+                    isOpen={this.state.accion == 2 }
+                    centered
+                    size="lg"
+                    toggle={this.mitoogle}
+
+                >
+                    <ModalHeader
+                        toggle={this.mitoogle}
+                        close={<button className="btn-lg" onClick={this.mitoogle}>x</button>}
+                        className='bg-dark'
+                    >
+                        Eliminar
+                    </ModalHeader>
+                    <ModalBody className='bg-dark'>
+                        ¿Desea Eliminar Este Producto?
+                    </ModalBody>
+                    <ModalFooter className='bg-dark'>
+                        <button type="button" class="btn" onClick={this.mitoogle}>Cerrar</button>
+                        <button type="button" onClick={() => this.eliminar() == true} class="btn">Eliminar</button>
+                    </ModalFooter>
+                </Modal>
+
+
+                <Modal
+                    isOpen={this.state.accion == 3 && true}
+                    centered
+                    size="lg"
+                    toggle={this.mitoogle}
+
+                >
+                    <ModalHeader
+                        toggle={this.mitoogle}
+                        close={<button className="btn-lg" onClick={this.mitoogle}>x</button>}
+                        className='bg-dark'
+                    >
+                        Editar Producto
+                    </ModalHeader>
+                    <ModalBody className='bg-dark'>
+                        <Form>
+                            <FormGroup className='my-3'>
+                                <Label for='name'>Producto ID: </Label>
+                                <Label for='name'>* </Label>
+                            </FormGroup>
+                            <FormGroup className='my-3'>
+                                <Label for='name'>Nombre del producto: </Label>
+                                <Input className='bg-dark text-white' name='name' ></Input>
+                            </FormGroup>
+                            <FormGroup className='my-3'>
+                                <Input className='bg-dark text-white' type='select' name='proveedor' onChange={evt => this.nameChange(evt)} value={this.state.proveedor}>
+                                    <option selected value="default">Selecciona un proveedor</option>
+                                    {
+                                        this.state.suppliers.map(supplier =>
+                                            <option value={supplier.supplierId}>{supplier.companyName}</option>
+                                        )
+
+                                    }
+                                </Input>
+                            </FormGroup>
+                            <FormGroup className='my-3'>
+                                <Input className='bg-dark text-white' type='select' name='categoria' onChange={evt => this.nameChange(evt)} value={this.state.categoria}>
+                                    <option selected value="default">Selecciona una categoria</option>
+                                    {
+                                        this.state.categorias.map(categoria =>
+                                            <option value={categoria.categoryId}>{categoria.categoryName}</option>
+                                        )
+
+                                    }
+                                </Input>
+                            </FormGroup>
+                            <FormGroup className='my-3'>
+                                <label for="quantity" class="form-label">Cantidad por unidad: </label>
+                                <input name='quantity'  type="text" class="form-control bg-dark text-white" />
+                            </FormGroup>
+                            <FormGroup className='my-3'>
+                                <label for="precio" class="form-label">Precio unitario</label>
+                                <input name='precio'  type="number" class="form-control bg-dark text-white" />
+                            </FormGroup>
+                            <FormGroup className='my-3'>
+                                <Input className='bg-dark text-white' type='select' name='company' onChange={evt => this.nameChange(evt)} value={this.state.company}>
+                                    <option selected value="default">Selecciona una compañía</option>
+                                    {
+                                        this.state.companies.map(companie =>
+                                            <option value={companie.companyId}>{companie.companyName}</option>
+                                        )
+
+                                    }
+                                </Input>
+                            </FormGroup>
+                        </Form>
+                    </ModalBody>
+                    <ModalFooter className='bg-dark'>
+                        <button type="button" class="btn" onClick={this.mitoogle}>Cerrar</button>
+                        <button type="button"  class="btn">Editar</button>
                     </ModalFooter>
                 </Modal>
             </div>
