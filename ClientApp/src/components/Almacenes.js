@@ -25,7 +25,7 @@ export class Almacenes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            accion: 0, data: [], categorias: [], suppliers: [], companies: [],productId:0,
+            accion: 0, data: [], categorias: [], suppliers: [], companies: [], productId: 0,
             name: "", proveedor: 0, categoria: 0, quantity: "", precio: 0,
             company: 0
         };
@@ -110,7 +110,7 @@ export class Almacenes extends Component {
         producto.productId  */
 
     }
-    eliminar(){
+    eliminar() {
         const options = {
             method: "DELETE",
             headers: {
@@ -118,7 +118,7 @@ export class Almacenes extends Component {
             },
         };
 
-        fetch("api/Products/"+ this.state.productId, options).then(
+        fetch("api/Products/" + this.state.productId, options).then(
             (response) => {
                 return response.status;
             }
@@ -132,11 +132,11 @@ export class Almacenes extends Component {
             }
         )
     }
-    cargarModalEditar(){
+    cargarModalEditar() {
 
     }
-    EditarProducto(){
-        
+    EditarProducto() {
+
     }
     agregarProducto() {
 
@@ -169,7 +169,8 @@ export class Almacenes extends Component {
         ).then(
             (code) => {
                 if (code == 201) {
-                    alert("ya jaló");
+                    this.setState({accion:0});
+                    this.componentDidMount();
                 } else {
                     console.log(code);
                 }
@@ -190,8 +191,8 @@ export class Almacenes extends Component {
     mostrarModalUpdate = () => {
         this.setState({ accion: 3 });
     }
-    mostrarModalDelete = (id ) => {
-        this.setState({ accion: 2 , productId: id });
+    mostrarModalDelete = (id) => {
+        this.setState({ accion: 2, productId: id });
         console.log(id)
     }
     render() {
@@ -307,7 +308,7 @@ export class Almacenes extends Component {
                 </Modal>
 
                 <Modal
-                    isOpen={this.state.accion == 2 }
+                    isOpen={this.state.accion == 2}
                     centered
                     size="lg"
                     toggle={this.mitoogle}
@@ -378,11 +379,11 @@ export class Almacenes extends Component {
                             </FormGroup>
                             <FormGroup className='my-3'>
                                 <label for="quantity" class="form-label">Cantidad por unidad: </label>
-                                <input name='quantity'  type="text" class="form-control bg-dark text-white" />
+                                <input name='quantity' type="text" class="form-control bg-dark text-white" />
                             </FormGroup>
                             <FormGroup className='my-3'>
                                 <label for="precio" class="form-label">Precio unitario</label>
-                                <input name='precio'  type="number" class="form-control bg-dark text-white" />
+                                <input name='precio' type="number" class="form-control bg-dark text-white" />
                             </FormGroup>
                             <FormGroup className='my-3'>
                                 <Input className='bg-dark text-white' type='select' name='company' onChange={evt => this.nameChange(evt)} value={this.state.company}>
@@ -399,7 +400,7 @@ export class Almacenes extends Component {
                     </ModalBody>
                     <ModalFooter className='bg-dark'>
                         <button type="button" class="btn" onClick={this.mitoogle}>Cerrar</button>
-                        <button type="button"  class="btn">Editar</button>
+                        <button type="button" class="btn">Editar</button>
                     </ModalFooter>
                 </Modal>
             </div>
