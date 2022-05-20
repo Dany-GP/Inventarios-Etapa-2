@@ -5,7 +5,7 @@ import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { Almacenes }  from './components/Almacenes';
-import { Operaciones }  from './components/Operaciones';
+import { Movimientos }  from './components/Movimientos';
 
 import './custom.css'
 
@@ -19,7 +19,7 @@ export default class App extends Component {
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
         <Route path='/Almacenes' component={Almacenes} />
-        <Route path='/Operaciones' component={Operaciones} />
+        <Route path='/Movimientos' component={Movimientos} />
       </Layout>
     );
   }

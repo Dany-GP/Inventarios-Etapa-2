@@ -70,7 +70,7 @@ namespace aspnetcore_with_reactspa.Controllers
           {
               return NotFound();
           }
-            return await _context.Products.ToListAsync();
+            return await _context.Products.OrderByDescending(p => p.ProductId).ToListAsync();
         }
 
         // GET: api/Products/5
