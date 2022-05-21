@@ -3,14 +3,14 @@ import {
     Modal, ModalBody,
     ModalHeader, ModalFooter, Form, FormGroup, Label, Input
 } from 'reactstrap';
-
+import DatePicker from "react-datepicker";
 
 export class Movimientos extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            accion: 0, data: []
+            accion: 0, data: [], fecha: new Date()
         };
 
     }
@@ -35,6 +35,11 @@ export class Movimientos extends Component {
 
     mitoogle = () => {
         this.setState({ accion: 0 });
+
+    }
+
+    nameChange(evt) {
+        this.setState({ [evt.target.name]: evt.target.value });
 
     }
 
@@ -108,7 +113,40 @@ export class Movimientos extends Component {
                         Agregar Movimiento
                     </ModalHeader>
                     <ModalBody className='bg-dark'>
-
+                        <Form>
+                            <FormGroup>
+                                <label>Fecha</label>
+                                <Input ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <label>proveedor</label>
+                                <Input ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <label>Almacen origen</label>
+                                <Input ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <label>Almacen destino</label>
+                                <Input ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <label>Tipo de movimiento</label>
+                                <Input ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <label>Notas</label>
+                                <Input ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <label>Compañia</label>
+                                <Input ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <label>Empleado</label>
+                                <Input ></Input>
+                            </FormGroup>
+                        </Form>
                     </ModalBody>
                     <ModalFooter className='bg-dark'>
                         <button type="button" class="btn" onClick={this.mitoogle}>Cerrar</button>
